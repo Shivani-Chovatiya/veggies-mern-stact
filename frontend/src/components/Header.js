@@ -62,6 +62,11 @@ const Header = () => {
                 <i class="fa-solid fa-cart-shopping"></i>
                 &nbsp; Cart
               </Nav.Link>
+
+              <Nav.Link href="/gehired">
+                {/* <i class="fa-regular fa-person-dolly-empty"></i> */}
+                &nbsp; getHired
+              </Nav.Link>
             </Nav>
             <Form className="d-flex">
               <FormControl
