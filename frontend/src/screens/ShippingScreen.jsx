@@ -16,6 +16,7 @@ const ShippingScreen = ({ history }) => {
   const [city, setCity] = useState(shippingAddress.city);
   const [postalcode, setPostalcode] = useState(shippingAddress.postalcode);
   const [country, setCountry] = useState(shippingAddress.country);
+  
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ const ShippingScreen = ({ history }) => {
               required
             ></Form.Control>
           </Form.Group>
+          
           <Form.Group controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control

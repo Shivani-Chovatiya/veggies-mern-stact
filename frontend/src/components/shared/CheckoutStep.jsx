@@ -48,3 +48,11 @@ const CheckoutStep = ({ step1, step2, step3, step4 }) => {
 };
 
 export default CheckoutStep;
+
+// import React from "react";
+
+// const CheckoutStep = () => {
+//   return <div>CheckoutStep</div>;
+// };
+
+// export default CheckoutStep;

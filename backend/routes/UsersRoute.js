@@ -6,13 +6,15 @@ const {
   updateUserProfile,
   getallUsers,
   deleteuser,
+  forgotPassword,
 } = require("../controllers/usersController");
 const router = express.Router();
 const { protect } = require("../middlewares/authMiddleware");
 
 //user registration
 router.route("/").post(registerUser);
-
+//router.route("/forgot").post(forgotPassword);
+router.put("/forgot", forgotPassword);
 //post email and password auth
 router.post("/login", authController);
 router.get("/getallusers", getallUsers);

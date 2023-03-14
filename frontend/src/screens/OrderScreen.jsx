@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 import axios from "axios";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import {  Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getOrderDetails, payOrder } from "../actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/shared/Message";
 import Loader from "../components/shared/Loader";
+
 
 // OrderScreen
 const OrderScreen = ({ match }) => {
@@ -36,6 +37,8 @@ const OrderScreen = ({ match }) => {
     dispatch(payOrder(orderId, paymentResult));
   };
 
+  
+  
   useEffect(() => {
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get("http://localhost:8080/api/config/paypal");
@@ -156,6 +159,23 @@ const OrderScreen = ({ match }) => {
                   <Col>Total</Col>
                   <Col>₹{order.totalPrice}</Col>
                 </Row>
+                {
+                  order.totalPrice < 500 ? (<Message variant="danger">
+                  Sorry...we not give any kind of discount 
+                </Message>):(
+                  <Row>
+                  <Col>Final Price</Col>
+                  <Col>₹{order.totalPrice * 95 /100}</Col>
+                  <Message variant="danger">
+                  we  give 5% discount</Message>
+                </Row> 
+                
+                
+               )
+                }
+                {/* <><Discount /></> */}
+                
+                
               </ListGroup.Item>
               <ListGroup.Item>
                 {error && <Message variant="danger">{error}</Message>}
@@ -168,6 +188,7 @@ const OrderScreen = ({ match }) => {
               {!sdkReady ? (
                 <Loader />
               ) : (
+                
                 <PayPalButton
                   amount={order.totalPrice}
                   onSuccess={successPaymentHandler}

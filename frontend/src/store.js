@@ -7,6 +7,8 @@ import {
   addproductReducer,
   getproductByIdReducer,
   updateproductByIdReducer,
+  productReviewCreateReducer,
+  getAllProductReviewsReducer,
 } from "./reducers/productReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
@@ -15,6 +17,7 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
   getAllUsersReducer,
+  forgotPasswordReducer,
 } from "./reducers/userReducers";
 
 import {
@@ -24,6 +27,16 @@ import {
   orderPayReducer,
   allUserOrdersReducer,
 } from "./reducers/orderReducers";
+import {
+  getAllMenReducer,
+  hiringManReducer,
+  manListMyReducer,
+  manSubmitFormReducer,
+} from "./reducers/hiringmanReducers";
+
+const manAddressFromStorage = localStorage.getItem("manAddress")
+  ? JSON.parse(localStorage.getItem("manAddress"))
+  : {};
 
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
@@ -32,6 +45,10 @@ const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
+
+// const workerInfoFromStorage = localStorage.getItem("workerInfo")
+//   ? JSON.parse(localStorage.getItem("workerInfo"))
+//   : null;
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
@@ -54,6 +71,13 @@ const reducer = combineReducers({
   updateproductByIdReducer: updateproductByIdReducer,
   allUserOrdersReducer: allUserOrdersReducer,
   getAllUsersReducer: getAllUsersReducer,
+  //hiringManReducer: hiringManReducer,
+  manSubmitFormReducer: manSubmitFormReducer,
+  getAllMenReducer: getAllMenReducer,
+  manListMyReducer: manListMyReducer,
+  productReviewCreate: productReviewCreateReducer,
+  getAllProductReviewsReducer: getAllProductReviewsReducer,
+  forgotPasswordReducer: forgotPasswordReducer,
 });
 const initialState = {
   cart: {
@@ -61,6 +85,10 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+  // mansubmit: {
+  //   workerInfo: workerInfoFromStorage,
+  //   manAddress: manAddressFromStorage,
+  // },
 };
 const middleware = [thunk];
 const store = createStore(

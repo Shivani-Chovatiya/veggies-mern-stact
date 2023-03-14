@@ -1,6 +1,9 @@
 const User = require("../models/UserModel");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+const crypto = require("crypto");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
+const ErrorHander = require("../utils/errorhander");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -103,6 +106,27 @@ const deleteuser = asyncHandler(async (req, res) => {
   }
 });
 
+const forgotPassword = (req, res) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+    }
+    const token = buffer.toString("hex");
+    User.findOne({ email: req.body.email }).then((user) => {
+      if (!user) {
+        return res
+          .status(422)
+          .json({ error: "User don't exists with that email" });
+      }
+      user.resetToken = token;
+      user.expireToken = Date.now() + 3600000;
+      user.save().then((result) => {
+        transporter.sendMail;
+      });
+    });
+  });
+};
+
 module.exports = {
   authController,
   getUserProfile,
@@ -110,4 +134,5 @@ module.exports = {
   updateUserProfile,
   getallUsers,
   deleteuser,
+  forgotPassword,
 };

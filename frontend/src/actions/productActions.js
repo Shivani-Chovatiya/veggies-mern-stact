@@ -16,6 +16,12 @@ import {
   UPDATE_PRODUCTBYID_FAILS,
   UPDATE_PRODUCTBYID_REQUEST,
   UPDATE_PRODUCTBYID_SUCCESS,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_REVIEW_LIST_REQUEST,
+  PRODUCT_REVIEW_LIST_SUCCESS,
+  PRODUCT_REVIEW_LIST_FAILS,
 } from "../constants/productConstant";
 
 export const listProducts = () => async (dispatch) => {
@@ -151,5 +157,69 @@ export const searchProduct = (searchkey) => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: searchedVeg });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAILS, payload: error });
+  }
+};
+
+export const createProductReview =
+  (id, review) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      await axios.post(
+        `http://localhost:8080/api/products/${id}/reviews`,
+        review,
+        config
+      );
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getallRating = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_REVIEW_LIST_REQUEST,
+    });
+
+    const { data } = await axios.get(
+      `http://localhost:8080/api/products/${id}/rating`
+      // config
+    );
+
+    dispatch({
+      type: PRODUCT_REVIEW_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_REVIEW_LIST_FAILS,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };

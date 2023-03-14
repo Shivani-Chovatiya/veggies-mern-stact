@@ -4,7 +4,9 @@ import {useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import AddNewVeggies from '../components/Admin/AddNewVeggies';
 import EditVeggies from '../components/Admin/EditVeggies';
+import HireMan from '../components/Admin/HireMan';
 import Orderlist from '../components/Admin/Orderlist';
+import Ratinglist from '../components/Admin/Ratinglist';
 import Userlist from '../components/Admin/Userlist';
 import Veggieslist from '../components/Admin/Veggieslist';
 
@@ -33,8 +35,10 @@ useEffect(() => {
 <ButtonGroup vertical style={{minHeight : "400px"}}>
   <Button onClick={() => history.push('/admin/userlist')}>All Users</Button>
   <Button onClick={() => history.push('/admin/veggieslist')}>All Vegetables</Button>
-  <Button onClick={() => history.push('/admin/addnewveggies')}>All New Vegetables</Button>
+  <Button onClick={() => history.push('/admin/addnewveggies')}>Add New Vegetables</Button>
   <Button onClick={() => history.push('/admin/orderlist')}>All Orders</Button>
+  <Button onClick={() => history.push('/admin/hireman')} >All Request</Button>
+  {/* <Button onClick={() => history.push('/admin/rating')} >All Review</Button> */}
  
 </ButtonGroup>
 </Col>
@@ -46,6 +50,8 @@ useEffect(() => {
         <Route exact path="/admin/addnewveggies" component={AddNewVeggies}  />
         <Route exact  path="/admin/orderlist"  component={Orderlist}  />
         <Route exact  path="/admin/editveggies/:vegId"  component={EditVeggies}/>
+        <Route exact  path="/admin/hireman"  component={HireMan}/>
+        {/* <Route exact path="/admin/rating" component={Ratinglist} /> */}
     </Switch>
 </Col>
 

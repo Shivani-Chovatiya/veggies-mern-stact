@@ -8,6 +8,7 @@ const productRoutes = require("./routes/productsRoute");
 const cors = require("cors");
 const usersRoutes = require("./routes/UsersRoute");
 const orderRoutes = require("./routes/orderRoute");
+const manRoute = require("./routes/manRoute");
 const path = require("path");
 
 //dotenv config
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/hireman", manRoute);
 
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,11 +12,18 @@ const PaymentScreen = ({ history }) => {
   }
   const dispatch = useDispatch();
   const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const [payment, setPayment] = useState("Debit");
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push("/placeorder");
   };
+
+  const  submit = (e) => {
+    e.preventDefault();
+    history.push("/placeorder2");
+  }
+
   return (
     <>
       <CheckoutStep step1 step2 step3 />
@@ -30,23 +38,29 @@ const PaymentScreen = ({ history }) => {
               id="paypal"
               name="paymentMethod"
               value="paypal"
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={(e) => setPaymentMethod(e.target.value) 
+                 }  required
             ></Form.Check>
              <Form.Check
               type="radio"
-              label="Debit Card"
+              label="Cash on Delivery"
               id="Debit"
-              name="paymentMethod"
+              name="payment"
               value="Debit"
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={(e) => setPayment(e.target.value)} 
             ></Form.Check>
+            
           </Col>
         </Form.Group>
         <Button type="submit" variant="primary">
-          Continue
+          Continue &nbsp;
         </Button>
+
+        
       </Form>
-    </>
+      
+      {/* <Button  className="btn btn-light" onClick={submit} >Cash On Delivery</Button> */}
+      </>
   );
 };
 

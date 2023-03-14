@@ -26,13 +26,7 @@ const Veggieslist = () => {
         //   <h2>{error}</h2>
         <Message variant="danger">{error}</Message>
       ) : (
-        // <Row>
-        //   {products.map((product) => (
-        //     <Col key={product._id} md={3}>
-        //       <Productscreen product={product} />
-        //     </Col>
-        //   ))}
-        // </Row>
+    
 
         <div>
             <Table striped bordered hover>

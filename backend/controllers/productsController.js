@@ -1,23 +1,3 @@
-// const Product = require("../models/ProductModel");
-// const asyncHandler = require("express-async-handler");
-
-// const getProducts = asyncHandler(async (req, res) => {
-//   const products = await Product.find({});
-//   // throw new Error("Some Eror");
-//   res.json(products);
-// });
-
-// const getProduct = asyncHandler(async (req, res) => {
-//   const product = await Product.findById(req.params.id);
-//   if (product) {
-//     res.json(product);
-//   } else {
-//     res.status(404).json({ message: "Product Not Found" });
-//   }
-// });
-
-// module.exports = { getProducts, getProduct };
-
 const Product = require("../models/ProductModel");
 const asyncHandler = require("express-async-handler");
 
@@ -46,7 +26,7 @@ const addProduct = asyncHandler(async (req, res) => {
       image: product.image,
       price: product.price,
       description: product.description,
-      countinstock: product.countInStock,
+      countInStock: product.countInStock,
       numReviews: product.numReviews,
       rating: product.rating,
     });
@@ -105,6 +85,63 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const createProductReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    // const alreadyReviewed = product.reviews.find(
+    //   (r) => r.user.toString() === req.user._id.toString()
+    // );
+
+    // if (alreadyReviewed) {
+    //   res.status(400);
+    //   throw new Error("Product already reviewed");
+    // }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    product.reviews.push(review);
+
+    product.numReviews = product.reviews.length;
+
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
+
+    await product.save();
+    res.status(201).json({ message: "Review added" });
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
+const getallRatings = asyncHandler(async (req, res) => {
+  //const id =req.body.id;
+  // try {
+  //   const product = await Product.findById(req.params.id);
+
+  //   res.status(200).send(product.reviews);
+  // } catch (error) {
+  //   res.status(404).json({ message: error });
+  // }
+
+  try {
+    const review = await Product.find({});
+
+    res.status(200).send(review);
+  } catch (error) {
+    res.status(404).json({ message: error });
+  }
+});
+
 module.exports = {
   getProducts,
   getProduct,
@@ -112,4 +149,6 @@ module.exports = {
   getProductById,
   updateProductById,
   deleteProduct,
+  createProductReview,
+  getallRatings,
 };

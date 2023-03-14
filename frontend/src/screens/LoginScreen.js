@@ -67,6 +67,11 @@ const LoginScreen = ({ location, history }) => {
             </Link>
           </Col>
         </Row>
+        {/* <Row>
+          <Col>
+            <Link to={"/forgotpassword"}>Forgot Password ?</Link>
+          </Col>
+        </Row> */}
       </FormContainer>
     </>
   );

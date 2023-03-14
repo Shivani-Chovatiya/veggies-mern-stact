@@ -19,6 +19,9 @@ import {
   USER_ALL_DETAILS_FAIL,
   USER_ALL_DETAILS_REQUEST,
   USER_ALL_DETAILS_SUCCESS,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
 export const logout = () => (dispatch) => {
@@ -192,5 +195,27 @@ export const deleteUser = (userid) => async (dispatch) => {
     console.log(res);
   } catch (error) {
     swal("Error While Deleting User");
+  }
+};
+
+// Forgot Password
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(
+      `http://localhost:8080/api/users/forgot`,
+      email,
+      config
+    );
+
+    dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
   }
 };

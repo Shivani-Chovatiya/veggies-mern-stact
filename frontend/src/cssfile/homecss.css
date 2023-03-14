@@ -1,0 +1,40 @@
+.carousel-bg {
+ 
+  background-image: url("https://s1.1zoom.me/big0/597/Vegetables_Tomatoes_Pepper_Cucumbers_Onion_Gray_543228_1280x856.jpg");
+
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
+  background-position: center;
+
+  height: 100vh;
+ 
+}
+.carousel-caption {
+  position: initial;
+}
+.carousel-control.left,
+.carousel-control.right {
+  background: transparent;
+}
+
+.item h3,
+.item p {
+  color: rgb(248, 246, 246);
+}
+
+.item h3 {
+  margin-top: 0px;
+  padding-top: 150px;
+  font-size: 45px;
+  font-weight: 900;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.item p {
+  font-size: 25px;
+  padding-bottom: 550px;
+  text-align: right;
+}

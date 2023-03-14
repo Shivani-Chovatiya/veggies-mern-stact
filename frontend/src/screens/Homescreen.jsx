@@ -7,18 +7,11 @@ import {Row,Col} from "react-bootstrap";
 import Productscreen from './Productscreen';
 import Loader from '../components/shared/Loader';
 import Message from '../components/shared/Message'
-import Filter from "../components/Filter";
+
 
 
 const Homescreen = () => {
-    // const [Products, setProducts] = useState([])
-    // useEffect(() => {
-    //     const fetchProducts = async () => {
-    //         const {data} = await axios.get('/products')
-    //         setProducts(data)
-    //     }
-    //     fetchProducts()
-    // },[])
+ 
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.productList);
     const { loading, error, products } = productList;
@@ -38,7 +31,7 @@ const Homescreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          <Filter/>
+          
           {products.map((product) => (
             <Col key={product._id} md={3}>
               <Productscreen product={product} />

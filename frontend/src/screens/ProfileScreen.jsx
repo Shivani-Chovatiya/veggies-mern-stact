@@ -28,6 +28,11 @@ const ProfileScreen = ({ location, history }) => {
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, orders, error: errorOrders } = orderListMy;
 
+  const getAllMenReducer = useSelector(state => state.getAllMenReducer)
+  const { men } = getAllMenReducer
+//   const manSubmitFormReducer = useSelector(state => state.manSubmitFormReducer)
+//  const {men} =manSubmitFormReducer
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -106,7 +111,7 @@ const ProfileScreen = ({ location, history }) => {
           ) : errorOrders ? (
             <Message variant="danger">{errorOrders}</Message>
           ) : (
-            <Table striped bordered hover responsive className="table-sm">
+            <Table /*striped bordered hover responsive className="table-sm"*/striped bordered hover variant="dark">
               <thead>
                 <tr>
                   <td>ID</td>
@@ -154,6 +159,40 @@ const ProfileScreen = ({ location, history }) => {
               </tbody>
             </Table>
           )}
+
+          {/* <h1>FORM REQUEST STATUS</h1>
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+
+                <th>Username</th>
+                <th>DATE</th>
+                <th>APPROVED</th>
+              </tr>
+            </thead>
+            <tbody>
+              {men && men.map(man => (
+                <tr key={man._id} >
+
+                  <td>{man.firstname}</td>
+                  <td>{man.createdAt?.substring(0, 10)}</td>
+                  <td> {man.isApprove ? (
+
+                    <h5 className='text-success'>Approved</h5>
+                  ) : (
+                    <i
+                      className="fas fa-times"
+                      style={{ color: "red" }}
+                    ></i>
+                  )}</td>
+
+                </tr>
+
+              ))}
+
+
+            </tbody>
+          </Table> */}
         </Col>
       </Row>
     </>

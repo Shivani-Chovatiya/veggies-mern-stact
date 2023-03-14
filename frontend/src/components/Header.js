@@ -37,6 +37,10 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
+              <Nav.Link href="/home">
+                {/* <i class="fa-regular fa-user"></i> */}
+                Home
+              </Nav.Link>
               {userInfo ? (
                 <NavDropdown title={userInfo.name}>
                   <LinkContainer to="/profile">
@@ -54,19 +58,18 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              {/* <Nav.Link href="/login">
-                <i class="fa-regular fa-user"></i>
-                &nbsp; login
-              </Nav.Link> */}
+
               <Nav.Link href="/cart">
                 <i class="fa-solid fa-cart-shopping"></i>
                 &nbsp; Cart
               </Nav.Link>
 
-              <Nav.Link href="/gehired">
+              <Nav.Link href="/gethired">
                 {/* <i class="fa-regular fa-person-dolly-empty"></i> */}
-                &nbsp; getHired
+                getHired
               </Nav.Link>
+
+              <Nav.Link href="/contactus">contact us</Nav.Link>
             </Nav>
             <Form className="d-flex">
               <FormControl
